@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNINEED — Your Campus, Your Convenience</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">MADE FOR CAMPUS LIFE <b>✳</b> BUILT AROUND LPU <b>✳</b> ONE PLACE. EVERYTHING YOU NEED.</div>
+
+<header>
+  <nav class="nav">
+    <a class="logo" href="#" style="text-decoration:none">UNI<span>NEED</span>.</a>
+    <div class="navlinks">
+      <a href="#shop">Shop</a>
+      <a href="#hostels">Hostels</a>
+      <a href="#how">How it works</a>
+    </div>
+    <div class="nav-actions">
+      <button class="iconbtn" onclick="document.getElementById('searchInput').focus()" aria-label="Search">⌕</button>
+      <button class="cartbtn" onclick="openCart()">Bag <span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> THE LPU CAMPUS MARKETPLACE</div>
+      <h1>Campus life,<br><em>made easier.</em></h1>
+      <p>From your 8 AM coffee to the lab coat you forgot to buy. Find the little and big things that make campus feel like yours.</p>
+      <div class="hero-ctas">
+        <button class="primary" onclick="document.getElementById('shop').scrollIntoView()">Explore the store ↗</button>
+        <button class="secondary" onclick="document.getElementById('hostels').scrollIntoView()">Find a stay</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-card"><small>YOUR CAMPUS, YOUR WAY</small><strong>Need it?<br>Find it here.</strong></div>
+      <div class="sticker">LPU<br>STUDENT<br>FAVOURITE ✳</div>
+      <div class="campus-illustration">🎒</div>
+      <div class="art-caption">A little more convenience in every college day.</div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><b>10+</b><span>Campus categories</span></div>
+    <div class="stat"><b>1 place</b><span>For everyday essentials</span></div>
+    <div class="stat"><b>Made local</b><span>For the LPU community</span></div>
+  </div>
+
+  <!-- Shop -->
+  <section id="shop">
+    <div class="section-head">
+      <div><div class="kicker">THE CAMPUS EDIT</div><h2>What do you need today?</h2></div>
+      <p>Good finds. Close to campus.</p>
+    </div>
+    <div class="category-grid" id="categoryGrid"></div>
+    <div class="toolbar">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Search food, books, chargers..." oninput="renderProducts()">
+      </div>
+      <select id="sortSelect" onchange="renderProducts()">
+        <option value="featured">Sort: Featured</option>
+        <option value="low">Price: Low to high</option>
+        <option value="high">Price: High to low</option>
+      </select>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- Hostels -->
+  <section id="hostels">
+    <div class="hostel-band">
+      <div>
+        <div class="kicker" style="color:var(--lime)">YOUR NEXT CAMPUS ADDRESS</div>
+        <h2>Find a place<br>to call home.</h2>
+        <p>Explore sample hostel and accommodation listings around the Lovely Professional University campus. Contact and availability details shown here are demo content.</p>
+        <button class="primary" style="background:var(--lime);color:var(--green)" onclick="document.getElementById('hostelCards').scrollIntoView()">Explore stays ↓</button>
+      </div>
+      <div class="hostel-visual">🏡</div>
+    </div>
+    <div class="hostel-list" id="hostelCards"></div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how">
+    <div class="section-head">
+      <div><div class="kicker">SIMPLE BY DESIGN</div><h2>Campus shopping, minus the fuss.</h2></div>
+    </div>
+    <div class="info-strip">
+      <div class="info"><span>🛍️</span><b>Find your essentials</b><p>Browse everyday products across food, study, lifestyle and campus categories.</p></div>
+      <div class="info"><span>🧺</span><b>Add to your bag</b><p>Keep your picks in one place. Your demo cart stays saved in this browser.</p></div>
+      <div class="info"><span>✨</span><b>Checkout your way</b><p>Choose a demo payment preference. No real payment is collected in this version.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <div class="logo" style="color:#d8f36a">UNINEED<span style="color:#f28b55">.</span></div>
+      <p>Your campus, your convenience. An independent student marketplace concept designed for the Lovely Professional University community.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#shop">Shop</a>
+      <a href="#hostels">Hostels</a>
+      <a href="#how">How it works</a>
+      <a href="mailto:hello@unineed.example">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart modal -->
+<div class="modal-backdrop" id="cartModal" onclick="backdropClose(event,'cartModal')">
+  <div class="modal">
+    <div class="modal-head"><h2>Your bag</h2><button class="close" onclick="closeModal('cartModal')">✕</button></div>
+    <div id="cartContents"></div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal-backdrop" id="checkoutModal" onclick="backdropClose(event,'checkoutModal')">
+  <div class="modal">
+    <div class="modal-head"><h2>Almost yours.</h2><button class="close" onclick="closeModal('checkoutModal')">✕</button></div>
+    <form id="checkoutForm">
+      <div class="field"><label>YOUR NAME</label><input required name="name" placeholder="Enter your name"></div>
+      <div class="field"><label>PHONE NUMBER</label><input required name="phone" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number"></div>
+      <div class="field"><label>DELIVERY LOCATION / HOSTEL</label><input required name="address" placeholder="e.g. Block A, Room 204"></div>
+      <div class="field">
+        <label>PAYMENT PREFERENCE</label>
+        <div class="payment-options">
+          <label class="pay-option"><input type="radio" name="payment" value="UPI (demo)" checked> UPI</label>
+          <label class="pay-option"><input type="radio" name="payment" value="Card (demo)"> Card</label>
+          <label class="pay-option"><input type="radio" name="payment" value="Cash on delivery"> Cash</label>
+        </div>
+      </div>
+      <div class="notice">Demo checkout only. No money will be charged and no real order will be sent to a seller. Connect a secure backend and payment gateway before accepting orders.</div>
+      <div id="checkoutTotal" class="total"></div>
+      <button class="primary" style="width:100%" type="submit">Place demo order ↗</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
